@@ -1,0 +1,91 @@
+article {
+    margin-bottom: 5em;
+}
+
+pre {
+    margin-top: 5px;
+}
+
+code,
+pre,
+.api-curl {
+    font-family: 'Source Code Pro', monospace;
+}
+
+.home-title {
+    font-family:   'Source Sans Pro', monospace;
+    font-size:     64pt;
+    font-weight:   200;
+    margin-top:    0.75em;
+    margin-bottom: 0.25em;
+    color:         #555;
+}
+
+.home-title a {
+    text-decoration: inherit;
+    color: inherit;
+}
+
+.home-title a:hover {
+    text-decoration: inherit;
+    color: inherit;
+}
+
+.home-tagline {
+    font-family:   'Source Sans Pro', monospace;
+    font-size:     24pt;
+    font-weight:   300;
+    margin-bottom: 0.75em;
+    color:         #bbb;
+}
+
+.home-docs-button {
+    margin-bottom: 1.5em;
+}
+
+.hljs {
+    padding:     0 !important;
+    background:  none !important;
+    white-space: pre !important;
+}
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.panel-heading {
+    background-color: #f4f4f4;
+}
+
+.panel-heading.solo {
+    border-bottom: none;
+    border-radius: 4px;
+}
+
+.panel-body {
+    background-color: #fafafa;
+    border-radius:    0 0 4px 4px;
+}
+
+.panel pre {
+    margin:     0 !important;
+    padding:    0 !important;
+    border:     none !important;
+    background: none;
+}
+
+.fa-twitter:hover {
+    color: #6CADDE;
+}
+
+.fa-envelope:hover {
+    color: #F7CC32;
+}
+
+.fa-github:hover {
+    color: #171515;
+}
+
+.fa-linkedin:hover {
+    color: #1378B3;
+}
