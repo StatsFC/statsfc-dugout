@@ -15,13 +15,13 @@ class Authenticate extends Middleware
     public function handle($request, Closure $next, ...$guards)
     {
         if (App::isDownForMaintenance()) {
-            return $this->respondWithError($request, $next, 503, 'Down for maintenance. We\'ll be right back');
+            return $this->respondWithError(503, 'Down for maintenance. We\'ll be right back');
         }
 
         $key = $request->header('X-StatsFC-Key');
 
         if (! $key) {
-            return $this->respondWithError($request, $next, 401, 'API key not provided');
+            return $this->respondWithError(401, 'API key not provided');
         }
 
         /*$customers = Customer::where('key', $key)->get();
@@ -50,13 +50,13 @@ class Authenticate extends Middleware
         return $next($request);
     }
 
-    protected function respondWithError(Request $request, Closure $next, int $status, string $message)
+    protected function respondWithError(int $status, string $message)
     {
-        return $next($request)->respond([
+        return response()->json([
             'error' => [
                 'message'    => $message,
                 'statusCode' => $status,
             ],
-        ]);
+        ], $status);
     }
 }
