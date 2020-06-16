@@ -1,3 +1,5 @@
+<p>Get the current squads of each team in the response.</p>
+
 <div class="panel panel-default">
     <div class="panel-heading solo">
         <pre>GET /squads</pre>
@@ -49,38 +51,45 @@
             <tr>
                 <td><samp>season</samp></td>
                 <td><samp>string</samp></td>
-                <td>The season the results are in</td>
+                <td>The name of the season</td>
+            </tr>
+            <tr>
+                <td><samp>season_id</samp></td>
+                <td><samp>integer</samp></td>
+                <td>The ID of the season</td>
             </tr>
             <tr>
                 <td><samp>competition</samp></td>
                 <td><samp>string</samp></td>
-                <td>The name of the competition the results are in</td>
+                <td>The name of the competition</td>
             </tr>
             <tr>
                 <td><samp>competition_id</samp></td>
                 <td><samp>integer</samp></td>
-                <td>The ID of the competition the results are in</td>
+                <td>The ID of the competition</td>
             </tr>
             <tr>
                 <td><samp>competition_key</samp></td>
                 <td><samp>string</samp></td>
-                <td>The key of the competition the results are in</td>
+                <td>The key of the competition</td>
             </tr>
             <tr>
                 <td><samp>team</samp></td>
                 <td><samp>string</samp></td>
-                <td>The name of the home or away team the results are in</td>
+                <td>The name of the team</td>
             </tr>
             <tr>
                 <td><samp>team_id</samp></td>
                 <td><samp>integer</samp></td>
-                <td>The ID of the home or away team the results are in</td>
+                <td>The ID of the team</td>
             </tr>
         </tbody>
     </table>
+
+    <p>At least one of the <code>season</code> or <code>season_id</code> parameters is <strong>required</strong>.</p>
 </section>
 
-<sectipn>
+<section>
     <h5>Possible Values</h5>
 
     <table class="table table-bordered">

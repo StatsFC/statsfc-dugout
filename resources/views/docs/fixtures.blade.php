@@ -79,7 +79,7 @@
             <tr>
                 <td><samp>season</samp></td>
                 <td><samp>string</samp></td>
-                <td>The season the fixtures are in</td>
+                <td>The name of the season the fixtures are in</td>
             </tr>
             <tr>
                 <td><samp>season_id</samp></td>
@@ -123,4 +123,6 @@
             </tr>
         </tbody>
     </table>
+
+    <p>At least one of the <code>season</code> or <code>season_id</code> parameters is <strong>required</strong>.</p>
 </section>

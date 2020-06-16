@@ -63,7 +63,12 @@
             <tr>
                 <td><samp>season</samp></td>
                 <td><samp>string</samp></td>
-                <td>The season for the standings</td>
+                <td>The name of the season for the standings</td>
+            </tr>
+            <tr>
+                <td><samp>season_id</samp></td>
+                <td><samp>integer</samp></td>
+                <td>The ID of the season for the standings</td>
             </tr>
             <tr>
                 <td><samp>competition</samp></td>
@@ -82,6 +87,8 @@
             </tr>
         </tbody>
     </table>
+
+    <p>At least one of the <code>season</code> or <code>season_id</code> parameters is <strong>required</strong>.</p>
 </section>
 
 <sectipn>

@@ -46,7 +46,12 @@
             <tr>
                 <td><samp>season</samp></td>
                 <td><samp>string</samp></td>
-                <td>The season the top scorers are from</td>
+                <td>The name of the season the top scorers are from</td>
+            </tr>
+            <tr>
+                <td><samp>season_id</samp></td>
+                <td><samp>integer</samp></td>
+                <td>The ID of the season the top scorers are from</td>
             </tr>
             <tr>
                 <td><samp>competition</samp></td>
@@ -76,5 +81,6 @@
         </tbody>
     </table>
 
-    <p>At least one of the <code>competition</code> or <code>team</code> parameters is <strong>required</strong>.</p>
+    <p>At least one of the <code>season</code> or <code>season_id</code> parameters is <strong>required</strong>.</p>
+    <p>At least one of the <code>competition</code>, <code>competition_id</code>, <code>competition_key</code>, <code>team</code> or <code>team_id</code> parameters is <strong>required</strong>.</p>
 </section>
