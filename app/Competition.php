@@ -29,8 +29,8 @@ class Competition extends Model
 
     public function scopeFilterRegion(Builder $query, Request $request): Builder
     {
-        if ($region = $request->has('region')) {
-            $query->where('competitions.country', '=', $region);
+        if ($request->has('region')) {
+            $query->where('competitions.country', '=', $request->get('region'));
         }
 
         return $query;

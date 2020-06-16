@@ -64,12 +64,12 @@ class Authenticate extends Middleware
     {
         $competitions = Competition::query();
 
-        if ($name = $request->has('competition')) {
-            $competitions->where('name', '=', $name);
-        } elseif ($id = $request->has('competition_id')) {
-            $competitions->where('id', '=', $id);
-        } elseif ($key = $request->has('competition_key')) {
-            $competitions->where('key', '=', $key);
+        if ($request->has('competition')) {
+            $competitions->where('name', '=', $request->get('competition'));
+        } elseif ($request->has('competition_id')) {
+            $competitions->where('id', '=', $request->get('competition_id'));
+        } elseif ($request->has('competition_key')) {
+            $competitions->where('key', '=', $request->get('competition_key'));
         } else {
             return true;
         }

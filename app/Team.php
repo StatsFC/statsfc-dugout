@@ -27,12 +27,12 @@ class Team extends Model
 
     public function scopeFilterCompetition(Builder $query, Request $request): Builder
     {
-        if ($name = $request->has('competition')) {
-            $query->where('competitions.name', '=', $name);
-        } elseif ($id = $request->has('competition_id')) {
-            $query->where('competitions.id', '=', $id);
-        } elseif ($key = $request->has('competition_key')) {
-            $query->where('competitions.key', '=', $key);
+        if ($request->has('competition')) {
+            $query->where('competitions.name', '=', $request->get('competition'));
+        } elseif ($request->has('competition_id')) {
+            $query->where('competitions.id', '=', $request->get('competition_id'));
+        } elseif ($request->has('competition_key')) {
+            $query->where('competitions.key', '=', $request->get('competition_key'));
         }
 
         return $query;
@@ -40,9 +40,11 @@ class Team extends Model
 
     public function scopeFilterSeason(Builder $query, Request $request): Builder
     {
-        if ($name = $request->has('season')) {
+        if ($request->has('season_id')) {
+            $query->where('matches.season_id', '=', $request->get('season_id'));
+        } elseif ($request->has('season')) {
             $query->join('seasons', 'seasons.id', '=', 'matches.season_id')
-                ->where('seasons.name', '=', $name);
+                ->where('seasons.name', '=', $request->get('season'));
         }
 
         return $query;
@@ -50,10 +52,10 @@ class Team extends Model
 
     public function scopeFilterTeam(Builder $query, Request $request): Builder
     {
-        if ($id = $request->has('team_id')) {
-            $query->where('teams.id', '=', $id);
-        } elseif ($name = $request->has('team')) {
-            $query->where('teams.name', '=', $name);
+        if ($request->has('team_id')) {
+            $query->where('teams.id', '=', $request->get('team_id'));
+        } elseif ($request->has('team')) {
+            $query->where('teams.name', '=', $request->get('team'));
         }
 
         return $query;

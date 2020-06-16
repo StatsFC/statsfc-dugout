@@ -100,12 +100,12 @@ class Match extends Model
 
     public function scopeFilterCompetition(Builder $query, Request $request): Builder
     {
-        if ($name = $request->has('competition')) {
-            $query->where('competitions.name', '=', $name);
-        } elseif ($id = $request->has('competition_id')) {
-            $query->where('competitions.id', '=', $id);
-        } elseif ($key = $request->has('competition_key')) {
-            $query->where('competitions.key', '=', $key);
+        if ($request->has('competition')) {
+            $query->where('competitions.name', '=', $request->get('competition'));
+        } elseif ($request->has('competition_id')) {
+            $query->where('competitions.id', '=', $request->get('competition_id'));
+        } elseif ($request->has('competition_key')) {
+            $query->where('competitions.key', '=', $request->get('competition_key'));
         }
 
         return $query;
@@ -113,12 +113,12 @@ class Match extends Model
 
     public function scopeFilterDates(Builder $query, Request $request): Builder
     {
-        if ($from = $request->has('from')) {
-            $query->whereRaw('DATE(`matches`.`start`) >= ?', [$from]);
+        if ($request->has('from')) {
+            $query->whereRaw('DATE(`matches`.`start`) >= ?', [$request->get('from')]);
         }
 
-        if ($to = $request->has('to')) {
-            $query->whereRaw('DATE(`matches`.`start`) <= ?', [$to]);
+        if ($request->has('to')) {
+            $query->whereRaw('DATE(`matches`.`start`) <= ?', [$request->get('to')]);
         }
 
         return $query;
@@ -126,11 +126,11 @@ class Match extends Model
 
     public function scopeFilterSeason(Builder $query, Request $request): Builder
     {
-        if ($id = $request->has('season_id')) {
-            $query->where('matches.season_id', '=', $id);
-        } elseif ($name = $request->has('season')) {
+        if ($request->has('season_id')) {
+            $query->where('matches.season_id', '=', $request->get('season_id'));
+        } elseif ($request->has('season')) {
             $query->join('seasons', 'seasons.id', '=', 'matches.season_id')
-                ->where('seasons.name', '=', $name);
+                ->where('seasons.name', '=', $request->get('season'));
         }
 
         return $query;
@@ -138,13 +138,13 @@ class Match extends Model
 
     public function scopeFilterTeam(Builder $query, Request $request): Builder
     {
-        if ($id = $request->has('team_id')) {
-            $query->whereRaw('? IN (`matches`.`home_id`, `matches`.`away_id`)', [$id]);
-        } elseif ($name = $request->has('team')) {
+        if ($request->has('team_id')) {
+            $query->whereRaw('? IN (`matches`.`home_id`, `matches`.`away_id`)', [$request->get('team_id')]);
+        } elseif ($request->has('team')) {
             $query
                 ->join('teams AS home', 'home.id', '=', 'matches.home_id')
                 ->join('teams AS away', 'away.id', '=', 'matches.away_id')
-                ->whereRaw('? IN (`home`.`name`, `away`.`name`)', [$name]);
+                ->whereRaw('? IN (`home`.`name`, `away`.`name`)', [$request->get('team')]);
         }
 
         return $query;
