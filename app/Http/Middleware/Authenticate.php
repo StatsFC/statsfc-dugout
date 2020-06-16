@@ -2,7 +2,8 @@
 
 namespace App\Http\Middleware;
 
-//use App\Customer;
+use App\{Customer, Competition, RateLimiter};
+use Carbon\Carbon;
 use Closure;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Http\Request;
@@ -24,34 +25,95 @@ class Authenticate extends Middleware
             return $this->respondWithError(401, 'API key not provided');
         }
 
-        /*$customers = Customer::where('key', $key)->get();
+        $customers = Customer::query()
+            ->where('key', '=', $key);
 
         if ($customers->count() !== 1) {
-            return $this->respondUnauthorised('API key not found');
+            return $this->respondWithError(401, 'API key not found');
         }
 
         $customer = $customers->first();
 
         if ($key !== static::API_TEST_KEY && ! $this->authenticateRequestIp($request, $customer)) {
-            return $this->respondUnauthorised('IP address does not match');
+            return $this->respondWithError(401, 'IP address does not match');
         }
 
-        if ($this->hasRequestedInvalidCompetition($request, $customer)) {
-            return $this->respondUnauthorised('The chosen competition is not in your API subscription');
+        if (! $this->hasRequestedValidCompetition($request, $customer)) {
+            return $this->respondWithError(401, 'The chosen competition is not in your API subscription');
         }
 
-        if ($this->hasExceededRateLimit($customer)) {
-            return $this->respondTooManyRequests();
+        if (! $this->isWithinRateLimit($customer)) {
+            return $this->respondWithError(429, 'Rate limit exceeded');
         }
 
-        // Put the customer into a session
-        $request->session()->put('customer_id', $customer->id);*/
+        $request->session()->put('customer_id', $customer->id);
 
         return $next($request);
     }
 
+    protected function authenticateRequestIp(Request $request, Customer $customer): bool
+    {
+        return (
+            App::environment() === 'local' ||
+            $customer->lift_ip_restriction ||
+            $request->ip() === $customer->ip
+        );
+    }
+
+    protected function hasRequestedValidCompetition(Request $request, Customer $customer): bool
+    {
+        $competitions = Competition::query();
+
+        if ($name = $request->has('competition')) {
+            $competitions->where('name', '=', $name);
+        } elseif ($id = $request->has('competition_id')) {
+            $competitions->where('id', '=', $id);
+        } elseif ($key = $request->has('competition_key')) {
+            $competitions->where('key', '=', $key);
+        } else {
+            return true;
+        }
+
+        if ($competitions->count() === 0) {
+            return true;
+        }
+
+        return in_array($competitions->first()->id, $customer->competitionIds());
+    }
+
+    protected function isWithinRateLimit(Customer $customer): bool
+    {
+        if (App::environment() === 'local') {
+            return true;
+        }
+
+        $today = Carbon::today()->toDateString();
+
+        $rateLimiter = RateLimiter::query()
+            ->where('customer_id', '=', $customer->id)
+            ->where('date', '=', $today)
+            ->first();
+
+        if (! $rateLimiter) {
+            $rateLimiter       = new RateLimiter;
+            $rateLimiter->date = $today;
+            $rateLimiter->customer()->associate($customer);
+        }
+
+        if ($rateLimiter->calls >= $customer->dailyRateLimit()) {
+            return false;
+        }
+
+        $rateLimiter->calls++;
+        $rateLimiter->save();
+
+        return true;
+    }
+
     protected function respondWithError(int $status, string $message)
     {
+        header_remove('X-Powered-By');
+
         return response()->json([
             'error' => [
                 'message'    => $message,
