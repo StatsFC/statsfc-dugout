@@ -64,6 +64,11 @@ class Match extends Model
         return $this->belongsTo(Team::class, 'away_id');
     }
 
+    public function competition(): BelongsTo
+    {
+        return $this->belongsTo(Competition::class);
+    }
+
     public function cards(): Builder
     {
         return $this->events()->whereIn('events.type', [
