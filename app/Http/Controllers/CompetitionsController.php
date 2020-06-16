@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Competition;
 use App\Transformers\CompetitionTransformer;
-use Illuminate\Http\Request;
+use Illuminate\Http\{JsonResponse, Request};
 
 class CompetitionsController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $competitions = Competition::query()
             ->select('competitions.*')
