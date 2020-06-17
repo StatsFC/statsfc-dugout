@@ -100,6 +100,7 @@ class Event extends Model
             ->where('events.type', '=', self::TYPE_GOAL)
             ->where('events.own_goal', '=', false)
             ->groupBy('players.id')
+            ->groupBy('teams.id')
             ->orderBy('goals', 'desc')
             ->orderBy('players.name', 'asc');
     }
