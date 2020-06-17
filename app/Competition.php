@@ -24,7 +24,7 @@ class Competition extends Model
 
     public function scopeEnabled(Builder $query): Builder
     {
-        return $query->where('competition.enabled', '=', true);
+        return $query->where('competitions.enabled', '=', true);
     }
 
     public function scopeFilterRegion(Builder $query, Request $request): Builder
