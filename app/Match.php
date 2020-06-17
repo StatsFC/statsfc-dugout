@@ -3,7 +3,8 @@
 namespace App;
 
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\{Builder, Model, Relations\BelongsTo, Relations\HasMany};
+use Illuminate\Database\Eloquent\Relations\{BelongsTo, HasMany};
+use Illuminate\Database\Eloquent\{Builder, Model};
 use Illuminate\Http\Request;
 
 class Match extends Model
@@ -71,11 +72,13 @@ class Match extends Model
 
     public function cards(): Builder
     {
-        return $this->events->whereIn('events.type', [
-            Event::TYPE_RED_CARD,
-            Event::TYPE_SECOND_YELLOW_CARD,
-            Event::TYPE_YELLOW_CARD,
-        ]);
+        return Event::query()
+            ->where('match_id', '=', $this->id)
+            ->whereIn('events.type', [
+                Event::TYPE_RED_CARD,
+                Event::TYPE_SECOND_YELLOW_CARD,
+                Event::TYPE_YELLOW_CARD,
+            ]);
     }
 
     public function events(): HasMany
@@ -85,7 +88,9 @@ class Match extends Model
 
     public function goals(): Builder
     {
-        return $this->events()->where('events.type', '=', Event::TYPE_GOAL);
+        return Event::query()
+            ->where('match_id', '=', $this->id)
+            ->where('events.type', '=', Event::TYPE_GOAL);
     }
 
     public function home(): BelongsTo
@@ -105,7 +110,9 @@ class Match extends Model
 
     public function substitutions(): Builder
     {
-        return $this->events()->where('events.type', '=', Event::TYPE_SUBSTITUTION);
+        return Event::query()
+            ->where('match_id', '=', $this->id)
+            ->where('events.type', '=', Event::TYPE_SUBSTITUTION);
     }
 
     public function scopeFilterCompetition(Builder $query, Request $request): Builder
