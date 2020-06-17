@@ -71,11 +71,16 @@ class Match extends Model
 
     public function cards(): Builder
     {
-        return $this->events()->whereIn('events.type', [
+        return $this->events->whereIn('events.type', [
             Event::TYPE_RED_CARD,
             Event::TYPE_SECOND_YELLOW_CARD,
             Event::TYPE_YELLOW_CARD,
         ]);
+    }
+
+    public function events(): HasMany
+    {
+        return $this->hasMany(Event::class);
     }
 
     public function goals(): Builder
