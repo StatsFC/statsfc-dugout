@@ -27,7 +27,7 @@ class MatchPlayer extends Model
 
     public function scopeFilterTeam(Builder $query, int $team_id): Builder
     {
-        return $query->where('team_id', '=', $team_id);
+        return $query->where('match_player.team_id', '=', $team_id);
     }
 
     public function scopeHasRole(Builder $query): Builder

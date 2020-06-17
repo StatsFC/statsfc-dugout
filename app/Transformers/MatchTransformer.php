@@ -20,14 +20,14 @@ class MatchTransformer extends Transformer
                 'home' => (new MatchPlayerTransformer)->transformCollection(
                     $match->matchPlayers()
                         ->hasRole()
-                        ->where('team_id', '=', $match->home_id)
+                        ->where('match_player.team_id', '=', $match->home_id)
                         ->orderByPosition()
                         ->get()
                 ),
                 'away' => (new MatchPlayerTransformer)->transformCollection(
                     $match->matchPlayers()
                         ->hasRole()
-                        ->where('team_id', '=', $match->away_id)
+                        ->where('match_player.team_id', '=', $match->away_id)
                         ->orderByPosition()
                         ->get()
                 ),
