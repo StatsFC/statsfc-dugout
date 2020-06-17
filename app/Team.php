@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\{Builder, Model};
+use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
 
 class Team extends Model
@@ -64,7 +65,7 @@ class Team extends Model
     public function scopeVisibleByCustomer(Builder $query, int $customer_id): Builder
     {
         return $query
-            ->join('matches', function (Builder $join) {
+            ->join('matches', function (JoinClause $join) {
                 $join->on('teams.id', '=', 'matches.home_id')
                     ->orOn('teams.id', '=', 'matches.away_id');
             })
