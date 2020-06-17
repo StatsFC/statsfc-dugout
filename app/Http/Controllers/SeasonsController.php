@@ -11,11 +11,8 @@ class SeasonsController extends Controller
     public function index(Request $request): JsonResponse
     {
         $seasons = Season::query()
-            ->select('seasons.*')
-            ->distinct()
-            ->visibleByCustomer($request->session()->get('customer_id'))
-            ->groupBy('seasons.id')
-            ->orderBy('seasons.name')
+            ->groupBy('id')
+            ->orderBy('name')
             ->get();
 
         return response()->json([
