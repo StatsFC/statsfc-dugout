@@ -5,7 +5,7 @@ use App\Event;
 
 class SubstitutionTransformer extends Transformer
 {
-    public function transform(Event $event): array
+    public function transform(Event $event, bool $includeMatch = false): array
     {
         $data = [
             'id'        => $event->id,
@@ -13,6 +13,10 @@ class SubstitutionTransformer extends Transformer
             'type'      => 'substitution',
             'subType'   => null,
         ];
+
+        if ($includeMatch) {
+            $data['match_id'] = $event->match_id;
+        }
 
         if ($event->team) {
             $data['team'] = (new TeamTransformer)->transform($event->team);

@@ -15,7 +15,7 @@ class EventsController extends Controller
             ->with('assist', 'player', 'team')
             ->join('matches', 'matches.id', '=', 'events.match_id')
             ->visibleByCustomer($request->session()->get('customer_id'))
-            ->whereRaw('matches.start >= date_sub(now(), interval 1 day)')
+            ->whereRaw('matches.start >= date_sub(now(), interval 2 day)')
             ->orderBy('events.created_at', 'desc')
             ->orderBy('events.id', 'desc')
             ->get();

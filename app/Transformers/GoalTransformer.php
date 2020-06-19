@@ -5,7 +5,7 @@ use App\Event;
 
 class GoalTransformer extends Transformer
 {
-    public function transform(Event $event): array
+    public function transform(Event $event, bool $includeMatch = false): array
     {
         $data = [
             'id'        => $event->id,
@@ -13,6 +13,10 @@ class GoalTransformer extends Transformer
             'type'      => 'goal',
             'subType'   => $event->subType(),
         ];
+
+        if ($includeMatch) {
+            $data['match_id'] = $event->match_id;
+        }
 
         if ($event->team) {
             $data['team'] = (new TeamTransformer)->transform($event->team);

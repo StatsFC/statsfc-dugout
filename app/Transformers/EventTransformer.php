@@ -9,15 +9,15 @@ class EventTransformer extends Transformer
     {
         switch ($event->type) {
             case Event::TYPE_GOAL:
-                return (new GoalTransformer)->transform($event);
+                return (new GoalTransformer)->transform($event, true);
 
             case Event::TYPE_RED_CARD:
             case Event::TYPE_SECOND_YELLOW_CARD:
             case Event::TYPE_YELLOW_CARD:
-                return (new CardTransformer)->transform($event);
+                return (new CardTransformer)->transform($event, true);
 
             case Event::TYPE_SUBSTITUTION:
-                return (new SubstitutionTransformer)->transform($event);
+                return (new SubstitutionTransformer)->transform($event, true);
 
             default:
                 return [];
