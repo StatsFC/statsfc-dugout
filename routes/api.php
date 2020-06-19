@@ -15,6 +15,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'v1'], function () {
 
 Route::group(['middleware' => 'auth', 'prefix' => 'v2'], function () {
     Route::get('/competitions', 'CompetitionsController@index');
+    Route::get('/events', 'EventsController@index');
     Route::get('/fixtures', 'FixturesController@index');
     Route::get('/results', 'ResultsController@index');
     Route::get('/seasons', 'SeasonsController@index');
