@@ -23,8 +23,8 @@ class SubstitutionTransformer extends Transformer
         }
 
         if ($event->player && $event->assist) {
-            $data['playerOff'] = (new PlayerTransformer)->transform($event->player);
-            $data['playerOn']  = (new PlayerTransformer)->transform($event->assist);
+            $data['playerOff'] = (new PlayerTransformer)->transform($event->assist);
+            $data['playerOn']  = (new PlayerTransformer)->transform($event->player);
         }
 
         return $data;
