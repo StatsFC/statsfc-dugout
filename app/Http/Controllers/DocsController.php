@@ -14,6 +14,7 @@ class DocsController extends Controller
                 'seasons'      => 'Seasons',
                 'fixtures'     => 'Fixtures',
                 'results'      => 'Results',
+                'events'       => 'Events',
                 'standings'    => 'Standings',
                 'top-scorers'  => 'Top Scorers',
                 'squads'       => 'Squads',

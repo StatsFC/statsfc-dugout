@@ -204,7 +204,7 @@
     <p>At least one of the <code>season</code> or <code>season_id</code> parameters is <strong>required</strong>.</p>
 </section>
 
-<sectipn>
+<section>
     <h5>Possible Values</h5>
 
     <table class="table table-bordered">
