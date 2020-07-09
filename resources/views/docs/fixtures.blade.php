@@ -126,3 +126,69 @@
 
     <p>At least one of the <code>season</code> or <code>season_id</code> parameters is <strong>required</strong>.</p>
 </section>
+
+<section>
+    <h5>Possible Values</h5>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Values</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="text-nowrap"><samp>currentState</samp></td>
+            <td><samp>string</samp></td>
+            <td>
+                <ul class="list-unstyled">
+                    <li>
+                        <samp>Int.</samp>
+                        <small>(Interrupted)</small>
+                    </li>
+                    <li>
+                        <samp>Delayed</samp>
+                        <small>(Delayed)</small>
+                    </li>
+                    <li>
+                        <samp>TBA</samp>
+                        <small>(Time to be announced)</small>
+                    </li>
+                    <li>
+                        <samp>14:30</samp>
+                        <small>(Not started - match start time)</small>
+                    </li>
+                    <li>
+                        <samp>23</samp>
+                        <small>(Match in progress - current minute)</small>
+                    </li>
+                    <li>
+                        <samp>HT</samp>
+                        <small>(Half time)</small>
+                    </li>
+                    <li>
+                        <samp>FT</samp>
+                        <small>(Full time)</small>
+                    </li>
+                    <li>
+                        <samp>P</samp>
+                        <small>(Penalty shootout in progress)</small>
+                    </li>
+                    <li>
+                        <samp>ET</samp>
+                        <small>(Extra time)</small>
+                    </li>
+                    <li>
+                        <samp>Break Time</samp>
+                        <small>(Break time between extra time periods)</small>
+                    </li>
+                </ul>
+            </td>
+            <td>The current match state</td>
+        </tr>
+        </tbody>
+    </table>
+</section>

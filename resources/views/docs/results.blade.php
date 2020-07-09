@@ -218,6 +218,55 @@
         </thead>
         <tbody>
             <tr>
+                <td class="text-nowrap"><samp>currentState</samp></td>
+                <td><samp>string</samp></td>
+                <td>
+                    <ul class="list-unstyled">
+                        <li>
+                            <samp>Postp.</samp>
+                            <small>(Postponed)</small>
+                        </li>
+                        <li>
+                            <samp>Aban.</samp>
+                            <small>(Abandoned)</small>
+                        </li>
+                        <li>
+                            <samp>Cancl.</samp>
+                            <small>(Cancelled)</small>
+                        </li>
+                        <li>
+                            <samp>Susp.</samp>
+                            <small>(Suspended)</small>
+                        </li>
+                        <li>
+                            <samp>Delayed</samp>
+                            <small>(Delayed)</small>
+                        </li>
+                        <li>
+                            <samp>FT</samp>
+                            <small>(Full time)</small>
+                        </li>
+                        <li>
+                            <samp>Pen.</samp>
+                            <small>(Match finished after penalty shootout)</small>
+                        </li>
+                        <li>
+                            <samp>AET</samp>
+                            <small>(Match finished after extra time)</small>
+                        </li>
+                        <li>
+                            <samp>WO</samp>
+                            <small>(Walkover)</small>
+                        </li>
+                        <li>
+                            <samp>Awarded</samp>
+                            <small>(Technical loss)</small>
+                        </li>
+                    </ul>
+                </td>
+                <td>The current match state</td>
+            </tr>
+            <tr>
                 <td class="text-nowrap">
                     <samp>players</samp>
                     <i class="fa fa-long-arrow-right"></i>
