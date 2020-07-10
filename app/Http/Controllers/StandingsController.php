@@ -31,7 +31,10 @@ class StandingsController extends Controller
                 'standings.season_id',
                 'standings.team_id',
             ])
+            ->orderBy('seasons.name')
+            ->orderBy('competitions.country')
             ->orderBy('competitions.order')
+            ->orderBy('standings.group')
             ->orderBy('standings.position')
             ->get();
 

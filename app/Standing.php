@@ -71,11 +71,12 @@ class Standing extends Model
 
     public function scopeFilterSeason(Builder $query, Request $request): Builder
     {
-        if ($request->has('season_id')) {
-            $query->where('standings.season_id', '=', $request->get('season_id'));
-        } elseif ($request->has('season')) {
-            $query->join('seasons', 'seasons.id', '=', 'standings.season_id')
-                ->where('seasons.name', '=', $request->get('season'));
+        $query->join('seasons', 'seasons.id', '=', 'standings.season_id');
+
+        if ($request->has('season')) {
+            $query->where('seasons.name', '=', $request->get('season'));
+        } elseif ($request->has('season_id')) {
+            $query->where('seasons.id', '=', $request->get('season_id'));
         }
 
         return $query;
