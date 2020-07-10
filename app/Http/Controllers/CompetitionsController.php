@@ -11,6 +11,7 @@ class CompetitionsController extends Controller
     public function index(Request $request): JsonResponse
     {
         $competitions = Competition::query()
+            ->with('rounds')
             ->select('competitions.*')
             ->visibleByCustomer($request->session()->get('customer_id'))
             ->filterRegion($request)

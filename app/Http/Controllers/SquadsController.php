@@ -20,6 +20,7 @@ class SquadsController extends Controller
         }
 
         $squads = Team::query()
+            ->with('players')
             ->select('teams.*')
             ->distinct()
             ->visibleByCustomer($request->session()->get('customer_id'))

@@ -20,6 +20,7 @@ class StandingsController extends Controller
         }
 
         $standings = Standing::query()
+            ->with('competition', 'season', 'team')
             ->select('standings.*')
             ->visibleByCustomer($request->session()->get('customer_id'))
             ->filterSeason($request)
