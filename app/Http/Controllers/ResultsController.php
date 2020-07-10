@@ -20,6 +20,18 @@ class ResultsController extends Controller
         }
 
         $matches = Match::query()
+            ->with([
+                'away',
+                'competition',
+                'events',
+                'events.assist',
+                'events.player',
+                'events.team',
+                'home',
+                'matchPlayers',
+                'round',
+                'round.season',
+            ])
             ->select('matches.*')
             ->visibleByCustomer($request->session()->get('customer_id'))
             ->filterSeason($request)

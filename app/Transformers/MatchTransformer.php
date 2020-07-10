@@ -1,12 +1,53 @@
 <?php
 namespace App\Transformers;
 
-use App\Match;
+use App\{Event, Match, MatchPlayer};
 
 class MatchTransformer extends Transformer
 {
     public function transform(Match $match): array
     {
+        $homePlayers = [];
+        $awayPlayers = [];
+
+        foreach ($match->matchPlayers as $matchPlayer) {
+            if (! in_array($matchPlayer->role, [MatchPlayer::ROLE_STARTING, MatchPlayer::ROLE_SUBSTITUTE])) {
+                continue;
+            }
+
+            switch ($matchPlayer->team_id) {
+                case $match->home_id:
+                    $homePlayers[] = (new MatchPlayerTransformer)->transform($matchPlayer);
+                    break;
+
+                case $match->away_id:
+                    $awayPlayers[] = (new MatchPlayerTransformer)->transform($matchPlayer);
+                    break;
+            }
+        }
+
+        $cards         = [];
+        $goals         = [];
+        $substitutions = [];
+
+        foreach ($match->events as $event) {
+            switch ($event->type) {
+                case Event::TYPE_RED_CARD:
+                case Event::TYPE_SECOND_YELLOW_CARD:
+                case Event::TYPE_YELLOW_CARD:
+                    $cards[] = (new CardTransformer)->transform($event);
+                    break;
+
+                case Event::TYPE_GOAL:
+                    $goals[] = (new GoalTransformer)->transform($event);
+                    break;
+
+                case Event::TYPE_SUBSTITUTION:
+                    $substitutions[] = (new SubstitutionTransformer)->transform($event);
+                    break;
+            }
+        }
+
         return [
             'id'           => $match->id,
             'timestamp'    => $match->start->toIso8601String(),
@@ -17,20 +58,8 @@ class MatchTransformer extends Transformer
                 'away' => (new TeamTransformer)->transform($match->away),
             ],
             'players'      => [
-                'home' => (new MatchPlayerTransformer)->transformCollection(
-                    $match->matchPlayers()
-                        ->hasRole()
-                        ->where('match_player.team_id', '=', $match->home_id)
-                        ->orderByPosition()
-                        ->get()
-                ),
-                'away' => (new MatchPlayerTransformer)->transformCollection(
-                    $match->matchPlayers()
-                        ->hasRole()
-                        ->where('match_player.team_id', '=', $match->away_id)
-                        ->orderByPosition()
-                        ->get()
-                ),
+                'home' => $homePlayers,
+                'away' => $awayPlayers,
             ],
             'score'        => [
                 $match->home_score,
@@ -38,9 +67,9 @@ class MatchTransformer extends Transformer
             ],
             'currentState' => $match->status,
             'events'       => [
-                'cards'         => (new CardTransformer)->transformCollection($match->cards()->get()),
-                'goals'         => (new GoalTransformer)->transformCollection($match->goals()->get()),
-                'substitutions' => (new SubstitutionTransformer)->transformCollection($match->substitutions()->get()),
+                'cards'         => $cards,
+                'goals'         => $goals,
+                'substitutions' => $substitutions,
             ],
         ];
     }

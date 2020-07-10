@@ -49,17 +49,6 @@ class Match extends Model
         ];
     }
 
-    public function hasEnded(): bool
-    {
-        return in_array($this->status, [
-            self::STATUS_POSTPONED,
-            self::STATUS_FULL_TIME,
-            self::STATUS_PENALTIES,
-            self::STATUS_AFTER_EXTRA_TIME,
-            self::STATUS_ABANDONED,
-        ]);
-    }
-
     public function away(): BelongsTo
     {
         return $this->belongsTo(Team::class, 'away_id');
@@ -70,27 +59,9 @@ class Match extends Model
         return $this->belongsTo(Competition::class);
     }
 
-    public function cards(): Builder
-    {
-        return Event::query()
-            ->where('match_id', '=', $this->id)
-            ->whereIn('events.type', [
-                Event::TYPE_RED_CARD,
-                Event::TYPE_SECOND_YELLOW_CARD,
-                Event::TYPE_YELLOW_CARD,
-            ]);
-    }
-
     public function events(): HasMany
     {
         return $this->hasMany(Event::class);
-    }
-
-    public function goals(): Builder
-    {
-        return Event::query()
-            ->where('match_id', '=', $this->id)
-            ->where('events.type', '=', Event::TYPE_GOAL);
     }
 
     public function home(): BelongsTo
@@ -106,13 +77,6 @@ class Match extends Model
     public function round(): BelongsTo
     {
         return $this->belongsTo(Round::class);
-    }
-
-    public function substitutions(): Builder
-    {
-        return Event::query()
-            ->where('match_id', '=', $this->id)
-            ->where('events.type', '=', Event::TYPE_SUBSTITUTION);
     }
 
     public function scopeFilterCompetition(Builder $query, Request $request): Builder
