@@ -22,8 +22,11 @@ class SubstitutionTransformer extends Transformer
             $data['team'] = (new TeamTransformer)->transform($event->team);
         }
 
-        if ($event->player && $event->assist) {
+        if ($event->assist) {
             $data['playerOff'] = (new PlayerTransformer)->transform($event->assist);
+        }
+
+        if ($event->player) {
             $data['playerOn']  = (new PlayerTransformer)->transform($event->player);
         }
 
