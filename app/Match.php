@@ -61,7 +61,9 @@ class Match extends Model
 
     public function events(): HasMany
     {
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Event::class)
+            ->orderBy('events.minute')
+            ->orderBy('events.extra_minute');
     }
 
     public function home(): BelongsTo
@@ -71,7 +73,10 @@ class Match extends Model
 
     public function matchPlayers(): HasMany
     {
-        return $this->hasMany(MatchPlayer::class);
+        return $this->hasMany(MatchPlayer::class)
+            ->orderBy('match_player.team_id')
+            ->orderByRaw('FIND_IN_SET(`match_player`.`role`, "starting,sub")')
+            ->orderBy('match_player.number');
     }
 
     public function round(): BelongsTo
