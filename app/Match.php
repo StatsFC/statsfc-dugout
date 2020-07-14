@@ -74,8 +74,11 @@ class Match extends Model
     public function matchPlayers(): HasMany
     {
         return $this->hasMany(MatchPlayer::class)
+            ->select('match_player.*')
+            ->join('players', 'players.id', '=', 'match_player.player_id')
             ->orderBy('match_player.team_id')
             ->orderByRaw('FIND_IN_SET(`match_player`.`role`, "starting,sub")')
+            ->orderByRaw('FIND_IN_SET(`players`.`position`, "G,D,M,A")')
             ->orderBy('match_player.number');
     }
 
