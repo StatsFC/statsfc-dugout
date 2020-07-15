@@ -8,12 +8,14 @@ class MatchTransformer extends Transformer
     public function transform(Match $match): array
     {
         $homePlayers = MatchPlayer::query()
+            ->with('player')
             ->where('match_id', '=', $match->id)
             ->where('team_id', '=', $match->home_id)
             ->whereIn('role', [MatchPlayer::ROLE_STARTING, MatchPlayer::ROLE_SUBSTITUTE])
             ->get();
 
         $awayPlayers = MatchPlayer::query()
+            ->with('player')
             ->where('match_id', '=', $match->id)
             ->where('team_id', '=', $match->away_id)
             ->whereIn('role', [MatchPlayer::ROLE_STARTING, MatchPlayer::ROLE_SUBSTITUTE])
