@@ -42,6 +42,8 @@ class Customer extends Model
             ->where('type', '=', 'API')
             ->where('from', '<=', Carbon::today()->toDateString())
             ->where('to', '>=', Carbon::today()->toDateString())
+            ->where('verified', '=', true)
+            ->orderBy('from', 'desc')
             ->first();
 
         if (! $payment) {
