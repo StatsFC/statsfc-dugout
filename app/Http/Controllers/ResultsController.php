@@ -19,6 +19,15 @@ class ResultsController extends Controller
             ], 401);
         }
 
+        if (! $request->hasAny(['competition', 'competition_id', 'competition_key'])) {
+            return response()->json([
+                'error' => [
+                    'message'    => 'You must filter by competition',
+                    'statusCode' => 401,
+                ],
+            ], 401);
+        }
+
         $matches = Match::query()
             ->with([
                 'away',
