@@ -25,7 +25,6 @@ class FixturesController extends Controller
                 'competition',
                 'events',
                 'home',
-                'matchPlayers',
                 'round',
                 'round.season',
             ])
