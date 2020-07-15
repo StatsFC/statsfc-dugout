@@ -7,24 +7,17 @@ class MatchTransformer extends Transformer
 {
     public function transform(Match $match): array
     {
-        $homePlayers = [];
-        $awayPlayers = [];
+        $homePlayers = MatchPlayer::query()
+            ->where('match_id', '=', $match->id)
+            ->where('team_id', '=', $match->home_id)
+            ->whereIn('role', [MatchPlayer::ROLE_STARTING, MatchPlayer::ROLE_SUBSTITUTE])
+            ->get();
 
-        foreach ($match->matchPlayers as $matchPlayer) {
-            if (! in_array($matchPlayer->role, [MatchPlayer::ROLE_STARTING, MatchPlayer::ROLE_SUBSTITUTE])) {
-                continue;
-            }
-
-            switch ($matchPlayer->team_id) {
-                case $match->home_id:
-                    $homePlayers[] = (new MatchPlayerTransformer)->transform($matchPlayer);
-                    break;
-
-                case $match->away_id:
-                    $awayPlayers[] = (new MatchPlayerTransformer)->transform($matchPlayer);
-                    break;
-            }
-        }
+        $awayPlayers = MatchPlayer::query()
+            ->where('match_id', '=', $match->id)
+            ->where('team_id', '=', $match->away_id)
+            ->whereIn('role', [MatchPlayer::ROLE_STARTING, MatchPlayer::ROLE_SUBSTITUTE])
+            ->get();
 
         $cards         = [];
         $goals         = [];
@@ -58,8 +51,8 @@ class MatchTransformer extends Transformer
                 'away' => (new TeamTransformer)->transform($match->away),
             ],
             'players'      => [
-                'home' => $homePlayers,
-                'away' => $awayPlayers,
+                'home' => (new MatchPlayerTransformer)->transformCollection($homePlayers),
+                'away' => (new MatchPlayerTransformer)->transformCollection($awayPlayers),
             ],
             'score'        => [
                 $match->home_score,

@@ -37,7 +37,6 @@ class ResultsController extends Controller
                 'events.player',
                 'events.team',
                 'home',
-                'matchPlayers',
                 'round',
                 'round.season',
             ])
