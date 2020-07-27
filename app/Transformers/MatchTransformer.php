@@ -48,7 +48,7 @@ class MatchTransformer extends Transformer
             'timestamp'    => $match->start->toIso8601String(),
             'competition'  => (new CompetitionTransformer)->transform($match->competition, false),
             'round'        => (new RoundTransformer)->transform($match->round),
-//            'group'        => $match->group_name,
+            'group'        => $match->group_name,
             'teams'        => [
                 'home' => (new TeamTransformer)->transform($match->home),
                 'away' => (new TeamTransformer)->transform($match->away),
