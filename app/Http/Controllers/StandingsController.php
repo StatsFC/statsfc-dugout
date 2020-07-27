@@ -34,7 +34,7 @@ class StandingsController extends Controller
             ->orderBy('seasons.name')
             ->orderBy('competitions.country')
             ->orderBy('competitions.order')
-            ->orderBy('standings.group')
+            ->orderBy('standings.group_name')
             ->orderBy('standings.position')
             ->get();
 

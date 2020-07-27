@@ -10,7 +10,7 @@ class StandingTransformer extends Transformer
         return [
             'season'      => (new SeasonTransformer)->transform($standing->season),
             'competition' => (new CompetitionTransformer)->transform($standing->competition, false),
-            'group'       => $standing->group,
+            'group'       => $standing->group_name,
             'team'        => (new TeamTransformer)->transform($standing->team),
             'position'    => $standing->position,
             'played'      => $standing->played,

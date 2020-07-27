@@ -22,6 +22,8 @@ class Match extends Model
         'round_id'        => 'integer',
         'season_id'       => 'integer',
         'competition_id'  => 'integer',
+        'group_id'        => 'integer',
+        'group_name'      => 'string',
         'home_id'         => 'integer',
         'away_id'         => 'integer',
         'week'            => 'integer',

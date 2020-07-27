@@ -13,7 +13,8 @@ class Standing extends Model
         'id'                 => 'integer',
         'season_id'          => 'integer',
         'competition_id'     => 'integer',
-        'group'              => 'string',
+        'group_id'           => 'integer',
+        'group_name'         => 'string',
         'team_id'            => 'integer',
         'position'           => 'integer',
         'played'             => 'integer',
@@ -44,6 +45,11 @@ class Standing extends Model
     public function competition(): BelongsTo
     {
         return $this->belongsTo(Competition::class);
+    }
+
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(Group::class);
     }
 
     public function season(): BelongsTo
