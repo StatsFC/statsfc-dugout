@@ -13,7 +13,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'v1'], function () {
     Route::get('/top-scorers', 'DeprecatedController@index');
 });
 
-Route::group(['middleware' => 'auth', 'prefix' => 'v2'], function () {
+Route::group(['middleware' => ['customthrottle:1,1', 'auth'], 'prefix' => 'v2'], function () {
     Route::get('/competitions', 'CompetitionsController@index');
     Route::get('/events', 'EventsController@index');
     Route::get('/fixtures', 'FixturesController@index');
