@@ -56,6 +56,9 @@ class Kernel extends HttpKernel
     protected $middlewarePriority = [
         \App\Http\Middleware\ApiThrottle::class,
         \App\Http\Middleware\Authenticate::class,
+        \App\Http\Middleware\RequireSeason::class,
+        \App\Http\Middleware\RequireCompetition::class,
+        \App\Http\Middleware\RequireCompetitionOrTeam::class,
     ];
 
     /**
@@ -66,14 +69,17 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
+        'apiThrottle' => \App\Http\Middleware\ApiThrottle::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'apiThrottle' => \App\Http\Middleware\ApiThrottle::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
+        'requireCompetition' => \App\Http\Middleware\RequireCompetition::class,
+        'requireCompetitionOrTeam' => \App\Http\Middleware\RequireCompetitionOrTeam::class,
+        'requireSeason' => \App\Http\Middleware\RequireSeason::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,

@@ -10,15 +10,6 @@ class SquadsController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        if (! $request->hasAny(['competition_id', 'competition_key', 'competition', 'team_id', 'team'])) {
-            return response()->json([
-                'error' => [
-                    'message'    => 'You must filter by competition or team',
-                    'statusCode' => 401,
-                ],
-            ], 401);
-        }
-
         $squads = Team::query()
             ->with('players')
             ->select('teams.*')

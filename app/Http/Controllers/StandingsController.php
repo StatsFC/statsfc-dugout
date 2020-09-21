@@ -10,15 +10,6 @@ class StandingsController extends Controller
 {
     public function index(Request $request): JsonResponse
     {
-        if (! $request->hasAny(['season', 'season_id'])) {
-            return response()->json([
-                'error' => [
-                    'message'    => 'You must filter by season',
-                    'statusCode' => 401,
-                ],
-            ], 401);
-        }
-
         $standings = Standing::query()
             ->with('competition', 'season', 'team')
             ->select('standings.*')

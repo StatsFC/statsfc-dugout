@@ -16,10 +16,10 @@ Route::group(['middleware' => 'auth', 'prefix' => 'v1'], function () {
 Route::group(['middleware' => ['apiThrottle:1,1', 'auth'], 'prefix' => 'v2'], function () {
     Route::get('/competitions', 'CompetitionsController@index');
     Route::get('/events', 'EventsController@index');
-    Route::get('/fixtures', 'FixturesController@index');
-    Route::get('/results', 'ResultsController@index');
+    Route::get('/fixtures', 'FixturesController@index')->middleware('requireSeason');
+    Route::get('/results', 'ResultsController@index')->middleware(['requireSeason', 'requireCompetition']);
     Route::get('/seasons', 'SeasonsController@index');
-    Route::get('/squads', 'SquadsController@index');
-    Route::get('/standings', 'StandingsController@index');
-    Route::get('/top-scorers', 'TopScorersController@index');
+    Route::get('/squads', 'SquadsController@index')->middleware('requireCompetitionOrTeam');
+    Route::get('/standings', 'StandingsController@index')->middleware('requireSeason');
+    Route::get('/top-scorers', 'TopScorersController@index')->middleware(['requireSeason', 'requireCompetitionOrTeam']);
 });
