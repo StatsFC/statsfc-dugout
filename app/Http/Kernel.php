@@ -54,7 +54,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewarePriority = [
-        \App\Http\Middleware\CustomThrottleMiddleware::class,
+        \App\Http\Middleware\ApiThrottle::class,
         \App\Http\Middleware\Authenticate::class,
     ];
 
@@ -71,7 +71,7 @@ class Kernel extends HttpKernel
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'customthrottle' => \App\Http\Middleware\CustomThrottleMiddleware::class,
+        'apiThrottle' => \App\Http\Middleware\ApiThrottle::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
