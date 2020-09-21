@@ -126,8 +126,6 @@ class Authenticate extends Middleware
 
     protected function respondWithError(int $status, string $message): JsonResponse
     {
-        header_remove('X-Powered-By');
-
         return response()->json([
             'error' => [
                 'message'    => $message,

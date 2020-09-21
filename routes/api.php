@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::group(['middleware' => 'auth', 'prefix' => 'v1'], function () {
+Route::group(['middleware' => ['auth', 'removePoweredByHeader'], 'prefix' => 'v1'], function () {
     Route::get('/competitions', 'DeprecatedController@index');
     Route::get('/fixtures', 'DeprecatedController@index');
     Route::get('/results', 'DeprecatedController@index');
@@ -13,7 +13,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'v1'], function () {
     Route::get('/top-scorers', 'DeprecatedController@index');
 });
 
-Route::group(['middleware' => ['apiThrottle:1,1', 'auth'], 'prefix' => 'v2'], function () {
+Route::group(['middleware' => ['apiThrottle:1,1', 'auth', 'removePoweredByHeader'], 'prefix' => 'v2'], function () {
     Route::get('/competitions', 'CompetitionsController@index');
     Route::get('/events', 'EventsController@index');
     Route::get('/fixtures', 'FixturesController@index')->middleware('requireSeason');

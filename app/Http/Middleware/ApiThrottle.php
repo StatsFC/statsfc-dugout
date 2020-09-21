@@ -14,8 +14,6 @@ class ApiThrottle extends ThrottleRequests
         $maxAttempts = $this->resolveMaxAttempts($request, $maxAttempts);
 
         if ($this->limiter->tooManyAttempts($key, $maxAttempts)) {
-            header_remove('X-Powered-By');
-
             return response()->json([
                 'error' => [
                     'message'    => 'You may only make 1 identical request per minute',

@@ -54,6 +54,7 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middlewarePriority = [
+        \App\Http\Middleware\RemovePoweredByHeader::class,
         \App\Http\Middleware\ApiThrottle::class,
         \App\Http\Middleware\Authenticate::class,
         \App\Http\Middleware\RequireSeason::class,
@@ -77,6 +78,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'password.confirm' => \Illuminate\Auth\Middleware\RequirePassword::class,
+        'removePoweredByHeader' => \App\Http\Middleware\RemovePoweredByHeader::class,
         'requireCompetition' => \App\Http\Middleware\RequireCompetition::class,
         'requireCompetitionOrTeam' => \App\Http\Middleware\RequireCompetitionOrTeam::class,
         'requireSeason' => \App\Http\Middleware\RequireSeason::class,
