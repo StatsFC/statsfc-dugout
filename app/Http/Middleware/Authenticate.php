@@ -6,12 +6,14 @@ use App\{Customer, Competition, RateLimiter};
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-use Illuminate\Http\Request;
+use Illuminate\Http\{JsonResponse, Request};
 use Illuminate\Support\Facades\App;
 
 class Authenticate extends Middleware
 {
     const API_TEST_KEY = 'apitest';
+
+    protected $rateLimiter;
 
     public function handle($request, Closure $next, ...$guards)
     {
@@ -48,7 +50,11 @@ class Authenticate extends Middleware
 
         $request->session()->put('customer_id', $customer->id);
 
-        return $next($request);
+        $request = $next($request);
+
+        $this->incrementRateLimiter($customer);
+
+        return $request;
     }
 
     protected function authenticateRequestIp(Request $request, Customer $customer): bool
@@ -83,34 +89,42 @@ class Authenticate extends Middleware
 
     protected function isWithinRateLimit(Customer $customer): bool
     {
-        if (App::environment() === 'local') {
-            return true;
-        }
-
-        $today = Carbon::today()->toDateString();
-
-        $rateLimiter = RateLimiter::query()
-            ->where('customer_id', '=', $customer->id)
-            ->where('date', '=', $today)
-            ->first();
-
-        if (! $rateLimiter) {
-            $rateLimiter       = new RateLimiter;
-            $rateLimiter->date = $today;
-            $rateLimiter->customer()->associate($customer);
-        }
-
-        if ($rateLimiter->calls >= $customer->dailyRateLimit()) {
-            return false;
-        }
-
-        $rateLimiter->calls++;
-        $rateLimiter->save();
-
-        return true;
+        return (
+            App::environment() === 'local' ||
+            $this->getRateLimiter($customer)->calls < $customer->dailyRateLimit()
+        );
     }
 
-    protected function respondWithError(int $status, string $message)
+    protected function getRateLimiter(Customer $customer): RateLimiter
+    {
+        if (! $this->rateLimiter) {
+            $today = Carbon::today()->toDateString();
+
+            $rateLimiter = RateLimiter::query()
+                ->where('customer_id', '=', $customer->id)
+                ->where('date', '=', $today)
+                ->first();
+
+            if (! $rateLimiter) {
+                $rateLimiter       = new RateLimiter;
+                $rateLimiter->date = $today;
+                $rateLimiter->customer()->associate($customer);
+            }
+
+            $this->rateLimiter = $rateLimiter;
+        }
+
+        return $this->rateLimiter;
+    }
+
+    protected function incrementRateLimiter(Customer $customer): void
+    {
+        $rateLimiter = $this->getRateLimiter($customer);
+        $rateLimiter->calls++;
+        $rateLimiter->save();
+    }
+
+    protected function respondWithError(int $status, string $message): JsonResponse
     {
         header_remove('X-Powered-By');
 
