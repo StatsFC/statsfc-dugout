@@ -1,6 +1,8 @@
+<p>Get a detailed list of all of today's games with live scores and match events, across all competitions.</p>
+
 <div class="panel panel-default">
     <div class="panel-heading solo">
-        <pre>GET /results</pre>
+        <pre>GET /live</pre>
     </div>
 </div>
 
@@ -15,121 +17,155 @@
             <pre><code class="json">{
     "data": [
         {
-            "id": 69540,
-            "timestamp": "2016-08-14T15:00:00+0000",
+            "id": 3389252,
+            "timestamp": "2020-09-20T18:00:00+0000",
             "competition": {
-                "id": 2,
+                "id": 9,
                 "name": "Premier League",
                 "key": "EPL",
                 "region": "England"
             },
             "round": {
-                "id": 1044,
-                "name": "Premier League",
+                "id": 807,
+                "name": "2020\/2021",
                 "season": {
-                    "id": 10,
-                    "name": "2016\/2017"
+                    "id": 9,
+                    "name": "2020\/2021"
                 }
             },
             "teams": {
                 "home": {
-                    "id": 18,
-                    "name": "Arsenal",
-                    "shortName": "Arsenal"
+                    "id": 9240,
+                    "name": "Leicester City",
+                    "shortName": "Leicester"
                 },
                 "away": {
-                    "id": 1,
-                    "name": "Liverpool",
-                    "shortName": "Liverpool"
+                    "id": 9072,
+                    "name": "Burnley",
+                    "shortName": "Burnley"
                 }
             },
             "players": {
                 "home": [
                     {
-                        "id": 16976,
-                        "number": 33,
+                        "id": 2841,
+                        "number": 1,
                         "position": "GK",
                         "role": "starting",
-                        "name": "P. \u010cech"
-                    }
+                        "name": "K. Schmeichel"
+                    },
+                    …
                 ],
                 "away": [
                     {
-                        "id": 17018,
-                        "number": 22,
+                        "id": 220636,
+                        "number": 1,
                         "position": "GK",
                         "role": "starting",
-                        "name": "S. Mignolet"
-                    }
+                        "name": "N. Pope"
+                    },
+                    …
                 ]
             },
             "score": [
-                3,
-                4
+                1,
+                1
             ],
-            "currentState": "FT",
+            "currentState": "HT",
             "events": {
                 "cards": [
                     {
-                        "id": 41059,
+                        "id": 36239771,
+                        "matchTime": "8'",
+                        "type": "card",
+                        "subType": "first-yellow",
+                        "team": {
+                            "id": 9072,
+                            "name": "Burnley",
+                            "shortName": "Burnley"
+                        },
+                        "player": {
+                            "id": 15915,
+                            "name": "J. Rodriguez",
+                            "position": "FW"
+                        }
+                    },
+                    {
+                        "id": 36239774,
                         "matchTime": "25'",
                         "type": "card",
                         "subType": "first-yellow",
                         "team": {
-                            "id": 1,
-                            "name": "Liverpool",
-                            "shortName": "Liverpool"
+                            "id": 9240,
+                            "name": "Leicester City",
+                            "shortName": "Leicester"
                         },
                         "player": {
-                            "id": "17235",
-                            "name": "A. Lallana",
+                            "id": 140912,
+                            "name": "N. Mendy",
                             "position": "MF"
                         }
                     }
                 ],
                 "goals": [
                     {
-                        "id": 160439,
-                        "matchTime": "29'",
+                        "id": 36239772,
+                        "matchTime": "10'",
                         "type": "goal",
                         "subType": null,
                         "team": {
-                            "id": 18,
-                            "name": "Arsenal",
-                            "shortName": "Arsenal"
+                            "id": 9072,
+                            "name": "Burnley",
+                            "shortName": "Burnley"
                         },
                         "player": {
-                            "id": "17476",
-                            "name": "T. Walcott",
+                            "id": 76918,
+                            "name": "C. Wood",
                             "position": "FW"
+                        }
+                    },
+                    {
+                        "id": 36239773,
+                        "matchTime": "20'",
+                        "type": "goal",
+                        "subType": null,
+                        "team": {
+                            "id": 9240,
+                            "name": "Leicester City",
+                            "shortName": "Leicester"
+                        },
+                        "player": {
+                            "id": 454522,
+                            "name": "H. Barnes",
+                            "position": "MF"
                         },
                         "assist": {
-                            "id": "34666",
-                            "name": "A. Iwobi",
-                            "position": "FW"
+                            "id": 297445,
+                            "name": "T. Castagne",
+                            "position": "DF"
                         }
                     }
                 ],
                 "substitutions": [
                     {
-                        "id": 57247,
-                        "matchTime": "60'",
+                        "id": 36239775,
+                        "matchTime": "40'",
                         "type": "substitution",
                         "subType": null,
                         "team": {
-                            "id": 18,
-                            "name": "Arsenal",
-                            "shortName": "Arsenal"
+                            "id": 9072,
+                            "name": "Burnley",
+                            "shortName": "Burnley"
                         },
                         "playerOff": {
-                            "id": "17478",
-                            "name": "A. Ramsey",
+                            "id": 134040,
+                            "name": "R. Brady",
                             "position": "MF"
                         },
                         "playerOn": {
-                            "id": "17480",
-                            "name": "S. Cazorla",
-                            "position": "MF"
+                            "id": 2487,
+                            "name": "E. Pieters",
+                            "position": "DF"
                         }
                     }
                 ]
@@ -139,69 +175,6 @@
 }</code></pre>
         </div>
     </div>
-</section>
-
-<section>
-    <h5>Optional Parameters</h5>
-
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Description</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><samp>season</samp></td>
-                <td><samp>string</samp></td>
-                <td>The name of the season the results are in</td>
-            </tr>
-            <tr>
-                <td><samp>season_id</samp></td>
-                <td><samp>integer</samp></td>
-                <td>The ID of the season the results are in</td>
-            </tr>
-            <tr>
-                <td><samp>competition</samp></td>
-                <td><samp>string</samp></td>
-                <td>The name of the competition the results are in</td>
-            </tr>
-            <tr>
-                <td><samp>competition_id</samp></td>
-                <td><samp>integer</samp></td>
-                <td>The ID of the competition the results are in</td>
-            </tr>
-            <tr>
-                <td><samp>competition_key</samp></td>
-                <td><samp>string</samp></td>
-                <td>The key of the competition the results are in</td>
-            </tr>
-            <tr>
-                <td><samp>team</samp></td>
-                <td><samp>string</samp></td>
-                <td>The name of the home or away team the results are in</td>
-            </tr>
-            <tr>
-                <td><samp>team_id</samp></td>
-                <td><samp>integer</samp></td>
-                <td>The ID of the home or away team the results are in</td>
-            </tr>
-            <tr>
-                <td><samp>from</samp></td>
-                <td><samp>string</samp></td>
-                <td>The earliest date to return results from. This is a date in ISO 8601 format: <samp>YYYY-MM-DD</samp></td>
-            </tr>
-            <tr>
-                <td><samp>to</samp></td>
-                <td><samp>string</samp></td>
-                <td>The latest date to return results to. This is a date in ISO 8601 format: <samp>YYYY-MM-DD</samp></td>
-            </tr>
-        </tbody>
-    </table>
-
-    <p>At least one of the <code>season</code> or <code>season_id</code> parameters is <strong>required</strong>.</p>
 </section>
 
 <section>
@@ -222,6 +195,46 @@
                 <td><samp>string</samp></td>
                 <td>
                     <ul class="list-unstyled">
+                        <li>
+                            <samp>Int.</samp>
+                            <small>(Interrupted)</small>
+                        </li>
+                        <li>
+                            <samp>Delayed</samp>
+                            <small>(Delayed)</small>
+                        </li>
+                        <li>
+                            <samp>TBA</samp>
+                            <small>(Time to be announced)</small>
+                        </li>
+                        <li>
+                            <samp>14:30</samp>
+                            <small>(Not started - match start time)</small>
+                        </li>
+                        <li>
+                            <samp>23</samp>
+                            <small>(Match in progress - current minute)</small>
+                        </li>
+                        <li>
+                            <samp>HT</samp>
+                            <small>(Half time)</small>
+                        </li>
+                        <li>
+                            <samp>FT</samp>
+                            <small>(Full time)</small>
+                        </li>
+                        <li>
+                            <samp>P</samp>
+                            <small>(Penalty shootout in progress)</small>
+                        </li>
+                        <li>
+                            <samp>ET</samp>
+                            <small>(Extra time)</small>
+                        </li>
+                        <li>
+                            <samp>Break Time</samp>
+                            <small>(Break time between extra time periods)</small>
+                        </li>
                         <li>
                             <samp>Postp.</samp>
                             <small>(Postponed)</small>

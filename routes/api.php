@@ -17,6 +17,7 @@ Route::group(['middleware' => ['apiThrottle:1,1', 'auth', 'removePoweredByHeader
     Route::get('/competitions', 'CompetitionsController@index');
     Route::get('/events', 'EventsController@index');
     Route::get('/fixtures', 'FixturesController@index')->middleware('requireSeason');
+    Route::get('/live', 'LiveController@index');
     Route::get('/results', 'ResultsController@index')->middleware(['requireSeason', 'requireCompetition']);
     Route::get('/seasons', 'SeasonsController@index');
     Route::get('/squads', 'SquadsController@index')->middleware('requireCompetitionOrTeam');
