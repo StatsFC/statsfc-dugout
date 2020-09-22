@@ -65,7 +65,8 @@ class Match extends Model
     {
         return $this->hasMany(Event::class)
             ->orderBy('events.minute')
-            ->orderBy('events.extra_minute');
+            ->orderBy('events.extra_minute')
+            ->orderBy('events.shootout_order');
     }
 
     public function home(): BelongsTo
