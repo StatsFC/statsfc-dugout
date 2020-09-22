@@ -8,7 +8,7 @@ class RemovePoweredByHeader
 {
     public function handle($request, Closure $next)
     {
-        header_remove('X-Powered-By');
+        $request->headers->remove('X-Powered-By');
 
         return $next($request);
     }
