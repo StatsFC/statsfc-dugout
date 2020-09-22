@@ -53,6 +53,11 @@ pre,
     border-bottom: none;
 }
 
+.nav-tabs > li > a {
+    padding-left: 9px;
+    padding-right: 9px;
+}
+
 .panel-heading {
     background-color: #f4f4f4;
 }
