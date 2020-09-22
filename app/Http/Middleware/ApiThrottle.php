@@ -40,4 +40,9 @@ class ApiThrottle extends ThrottleRequests
             $request->getQueryString(),
         ]));
     }
+
+    protected function getHeaders($maxAttempts, $remainingAttempts, $retryAfter = null)
+    {
+        return [];
+    }
 }
