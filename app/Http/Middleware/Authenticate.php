@@ -6,7 +6,7 @@ use App\{Customer, Competition, RateLimiter};
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-use Illuminate\Http\{JsonResponse, Request, Response};
+use Illuminate\Http\{JsonResponse, Request};
 use Illuminate\Support\Facades\App;
 
 class Authenticate extends Middleware
@@ -125,7 +125,7 @@ class Authenticate extends Middleware
         $rateLimiter->save();
     }
 
-    protected function setRateLimiterHeaders(Response $response, Customer $customer): void
+    protected function setRateLimiterHeaders($response, Customer $customer): void
     {
         $limit = $customer->dailyRateLimit();
 
