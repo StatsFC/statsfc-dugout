@@ -44,7 +44,7 @@ class Authenticate extends Middleware
             return $this->respondWithError(401, 'The chosen competition is not in your API subscription');
         }
 
-        if (! $this->isWithinRateLimit($customer)) {
+        if (! $this->isWithinRateLimit($request, $customer)) {
             return $this->respondWithError(429, 'Rate limit exceeded');
         }
 
@@ -87,12 +87,18 @@ class Authenticate extends Middleware
         return in_array($competitions->first()->id, $customer->competitionIds());
     }
 
-    protected function isWithinRateLimit(Customer $customer): bool
+    protected function isWithinRateLimit(Request $request, Customer $customer): bool
     {
-        return (
-            App::environment() === 'local' ||
-            $this->getRateLimiter($customer)->calls < $customer->dailyRateLimit()
-        );
+        $limit     = $customer->dailyRateLimit();
+        $remaining = ($limit - $this->getRateLimiter($customer)->calls);
+
+        $request->headers->add([
+            'X-RateLimit-Limit'     => $limit,
+            'X-RateLimit-Remaining' => $remaining,
+            'X-RateLimit-Reset'     => Carbon::tomorrow()->timestamp,
+        ]);
+
+        return (App::environment() === 'local' || $remaining > 0);
     }
 
     protected function getRateLimiter(Customer $customer): RateLimiter
