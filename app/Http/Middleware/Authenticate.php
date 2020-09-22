@@ -6,7 +6,7 @@ use App\{Customer, Competition, RateLimiter};
 use Carbon\Carbon;
 use Closure;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-use Illuminate\Http\{JsonResponse, Request};
+use Illuminate\Http\{JsonResponse, Request, Response};
 use Illuminate\Support\Facades\App;
 
 class Authenticate extends Middleware
@@ -44,17 +44,18 @@ class Authenticate extends Middleware
             return $this->respondWithError(401, 'The chosen competition is not in your API subscription');
         }
 
-        if (! $this->isWithinRateLimit($request, $customer)) {
+        if (! $this->isWithinRateLimit($customer)) {
             return $this->respondWithError(429, 'Rate limit exceeded');
         }
 
         $request->session()->put('customer_id', $customer->id);
 
-        $request = $next($request);
+        $response = $next($request);
 
         $this->incrementRateLimiter($customer);
+        $this->setRateLimiterHeaders($response, $customer);
 
-        return $request;
+        return $response;
     }
 
     protected function authenticateRequestIp(Request $request, Customer $customer): bool
@@ -87,18 +88,12 @@ class Authenticate extends Middleware
         return in_array($competitions->first()->id, $customer->competitionIds());
     }
 
-    protected function isWithinRateLimit(Request $request, Customer $customer): bool
+    protected function isWithinRateLimit(Customer $customer): bool
     {
-        $limit     = $customer->dailyRateLimit();
-        $remaining = ($limit - $this->getRateLimiter($customer)->calls);
-
-        $request->headers->add([
-            'X-RateLimit-Limit'     => $limit,
-            'X-RateLimit-Remaining' => $remaining,
-            'X-RateLimit-Reset'     => Carbon::tomorrow()->timestamp,
-        ]);
-
-        return (App::environment() === 'local' || $remaining > 0);
+        return (
+            App::environment() === 'local' ||
+            $this->getRateLimiter($customer)->calls < $customer->dailyRateLimit()
+        );
     }
 
     protected function getRateLimiter(Customer $customer): RateLimiter
@@ -128,6 +123,17 @@ class Authenticate extends Middleware
         $rateLimiter = $this->getRateLimiter($customer);
         $rateLimiter->calls++;
         $rateLimiter->save();
+    }
+
+    protected function setRateLimiterHeaders(Response $response, Customer $customer): void
+    {
+        $limit = $customer->dailyRateLimit();
+
+        $response->headers->add([
+            'X-RateLimit-Limit'     => $limit,
+            'X-RateLimit-Remaining' => ($limit - $this->getRateLimiter($customer)->calls),
+            'X-RateLimit-Reset'     => Carbon::tomorrow()->getTimestamp(),
+        ]);
     }
 
     protected function respondWithError(int $status, string $message): JsonResponse
