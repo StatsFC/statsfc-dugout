@@ -6,7 +6,7 @@
     <p class="text-center home-tagline">The complete documentation of our JSON API</p>
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 visible-md-block visible-lg-block">
             <div id="docs-nav">
                 <div class="list-group">
                     @foreach ($sections as $id => $name)
