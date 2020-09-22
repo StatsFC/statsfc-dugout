@@ -146,6 +146,7 @@
                         }
                     }
                 ],
+                "shootout": [],
                 "substitutions": [
                     {
                         "id": 36239775,
@@ -345,6 +346,7 @@
                         <li><samp>goal</samp></li>
                         <li><samp>card</samp></li>
                         <li><samp>substitution</samp></li>
+                        <li><samp>shootout</samp></li>
                     </ul>
                 </td>
                 <td>The primary type of the event</td>
@@ -377,6 +379,14 @@
                         <li>
                             <samp>red</samp>
                             <small>(relating to <samp>card</samp> type)</small>
+                        </li>
+                        <li>
+                            <samp>goal</samp>
+                            <small>(relating to <samp>shootout</samp> type)</small>
+                        </li>
+                        <li>
+                            <samp>miss</samp>
+                            <small>(relating to <samp>shootout</samp> type)</small>
                         </li>
                     </ul>
                 </td>

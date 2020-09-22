@@ -23,6 +23,7 @@ class MatchTransformer extends Transformer
 
         $cards         = [];
         $goals         = [];
+        $shootout      = [];
         $substitutions = [];
 
         foreach ($match->events as $event) {
@@ -35,6 +36,11 @@ class MatchTransformer extends Transformer
 
                 case Event::TYPE_GOAL:
                     $goals[] = (new GoalTransformer)->transform($event);
+                    break;
+
+                case Event::TYPE_SHOOTOUT_GOAL:
+                case Event::TYPE_SHOOTOUT_MISS:
+                    $shootout[] = (new ShootoutTransformer)->transform($event);
                     break;
 
                 case Event::TYPE_SUBSTITUTION:
@@ -65,6 +71,7 @@ class MatchTransformer extends Transformer
             'events'       => [
                 'cards'         => $cards,
                 'goals'         => $goals,
+                'shootout'      => $shootout,
                 'substitutions' => $substitutions,
             ],
         ];

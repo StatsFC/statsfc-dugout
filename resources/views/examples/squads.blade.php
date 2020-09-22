@@ -15,7 +15,7 @@
             },
             "players": [
                 {
-                    "id": "17478",
+                    "id": 17478,
                     "name": "A. Ramsey",
                     "position": "MF"
                 },

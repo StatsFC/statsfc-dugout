@@ -19,6 +19,10 @@ class EventTransformer extends Transformer
             case Event::TYPE_SUBSTITUTION:
                 return (new SubstitutionTransformer)->transform($event, true);
 
+            case Event::TYPE_SHOOTOUT_GOAL:
+            case Event::TYPE_SHOOTOUT_MISS:
+                return (new ShootoutTransformer)->transform($event, true);
+
             default:
                 return [];
         }

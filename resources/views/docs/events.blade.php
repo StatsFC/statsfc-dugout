@@ -21,6 +21,10 @@
             "matchTime": "63'",
             "type": "goal",
             "subType": null,
+            "score": [
+                5,
+                0
+            ],
             "match_id": 3114438,
             "team": {
                 "id": 9259,
@@ -88,6 +92,7 @@
                         <li><samp>goal</samp></li>
                         <li><samp>card</samp></li>
                         <li><samp>substitution</samp></li>
+                        <li><samp>shootout</samp></li>
                     </ul>
                 </td>
                 <td>The primary type of the event</td>
@@ -118,6 +123,14 @@
                         <li>
                             <samp>red</samp>
                             <small>(relating to <samp>card</samp> type)</small>
+                        </li>
+                        <li>
+                            <samp>goal</samp>
+                            <small>(relating to <samp>shootout</samp> type)</small>
+                        </li>
+                        <li>
+                            <samp>miss</samp>
+                            <small>(relating to <samp>shootout</samp> type)</small>
                         </li>
                     </ul>
                 </td>

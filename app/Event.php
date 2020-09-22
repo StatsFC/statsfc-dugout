@@ -14,6 +14,8 @@ class Event extends Model
     const TYPE_MISSED_PENALTY     = 'pen miss';
     const TYPE_RED_CARD           = 'redcard';
     const TYPE_SECOND_YELLOW_CARD = 'yellowred';
+    const TYPE_SHOOTOUT_GOAL      = 'shootout goal';
+    const TYPE_SHOOTOUT_MISS      = 'shootout miss';
     const TYPE_SUBSTITUTION       = 'subst';
     const TYPE_YELLOW_CARD        = 'yellowcard';
 
@@ -59,6 +61,12 @@ class Event extends Model
 
             case self::TYPE_RED_CARD:
                 return 'red';
+
+            case self::TYPE_SHOOTOUT_GOAL:
+                return 'goal';
+
+            case self::TYPE_SHOOTOUT_MISS:
+                return 'miss';
         }
 
         return null;

@@ -81,7 +81,7 @@
                             "shortName": "Liverpool"
                         },
                         "player": {
-                            "id": "17235",
+                            "id": 17235,
                             "name": "A. Lallana",
                             "position": "MF"
                         }
@@ -99,17 +99,18 @@
                             "shortName": "Arsenal"
                         },
                         "player": {
-                            "id": "17476",
+                            "id": 17476,
                             "name": "T. Walcott",
                             "position": "FW"
                         },
                         "assist": {
-                            "id": "34666",
+                            "id": 34666,
                             "name": "A. Iwobi",
                             "position": "FW"
                         }
                     }
                 ],
+                "shootout": [],
                 "substitutions": [
                     {
                         "id": 57247,
@@ -122,12 +123,12 @@
                             "shortName": "Arsenal"
                         },
                         "playerOff": {
-                            "id": "17478",
+                            "id": 17478,
                             "name": "A. Ramsey",
                             "position": "MF"
                         },
                         "playerOn": {
-                            "id": "17480",
+                            "id": 17480,
                             "name": "S. Cazorla",
                             "position": "MF"
                         }
@@ -332,6 +333,7 @@
                         <li><samp>goal</samp></li>
                         <li><samp>card</samp></li>
                         <li><samp>substitution</samp></li>
+                        <li><samp>shootout</samp></li>
                     </ul>
                 </td>
                 <td>The primary type of the event</td>
@@ -364,6 +366,14 @@
                         <li>
                             <samp>red</samp>
                             <small>(relating to <samp>card</samp> type)</small>
+                        </li>
+                        <li>
+                            <samp>goal</samp>
+                            <small>(relating to <samp>shootout</samp> type)</small>
+                        </li>
+                        <li>
+                            <samp>miss</samp>
+                            <small>(relating to <samp>shootout</samp> type)</small>
                         </li>
                     </ul>
                 </td>

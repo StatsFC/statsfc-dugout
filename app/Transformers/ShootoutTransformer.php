@@ -3,16 +3,16 @@ namespace App\Transformers;
 
 use App\Event;
 
-class GoalTransformer extends Transformer
+class ShootoutTransformer extends Transformer
 {
     public function transform(Event $event, bool $includeMatch = false): array
     {
         $data = [
-            'id'        => $event->id,
-            'matchTime' => $event->matchTime(),
-            'type'      => 'goal',
-            'subType'   => $event->subType(),
-            'score'     => [$event->home_score, $event->away_score],
+            'id'      => $event->id,
+            'type'    => 'shootout',
+            'subType' => $event->subType(),
+            'order'   => $event->shootout_order,
+            'score'   => [$event->home_score, $event->away_score],
         ];
 
         if ($includeMatch) {
@@ -25,10 +25,6 @@ class GoalTransformer extends Transformer
 
         if ($event->player) {
             $data['player'] = (new PlayerTransformer)->transform($event->player);
-        }
-
-        if ($event->assist) {
-            $data['assist'] = (new AssistTransformer)->transform($event->assist);
         }
 
         return $data;

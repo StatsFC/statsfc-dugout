@@ -55,6 +55,7 @@
             "events": [
                 "cards": [],
                 "goals": [],
+                "shootout": [],
                 "substitutions": []
             ]
         }

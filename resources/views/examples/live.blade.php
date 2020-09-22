@@ -137,6 +137,7 @@
                         }
                     }
                 ],
+                "shootout": [],
                 "substitutions": [
                     {
                         "id": 36239775,
