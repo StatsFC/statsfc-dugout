@@ -16,6 +16,7 @@ class StandingsController extends Controller
             ->visibleByCustomer($request->session()->get('customer_id'))
             ->filterSeason($request)
             ->filterCompetition($request)
+            ->join('teams', 'teams.id', '=', 'standings.team_id')
             ->groupBy([
                 'standings.id',
                 'standings.competition_id',
