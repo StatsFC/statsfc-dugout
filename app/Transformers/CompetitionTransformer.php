@@ -6,8 +6,12 @@ use App\Competition;
 
 class CompetitionTransformer extends Transformer
 {
-    public function transform(Competition $competition, bool $includeRounds = true): array
+    public function transform(Competition $competition = null, bool $includeRounds = true): ?array
     {
+        if ($competition === null) {
+            return null;
+        }
+
         $data = [
             'id'     => $competition->id,
             'name'   => $competition->name,

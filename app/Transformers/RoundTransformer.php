@@ -5,8 +5,12 @@ use App\Round;
 
 class RoundTransformer extends Transformer
 {
-    public function transform(Round $round): array
+    public function transform(Round $round = null): ?array
     {
+        if ($round === null) {
+            return null;
+        }
+
         return [
             'id'     => $round->id,
             'name'   => $round->name,
