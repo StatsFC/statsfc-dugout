@@ -203,6 +203,7 @@
     </table>
 
     <p>At least one of the <code>season</code> or <code>season_id</code> parameters is <strong>required</strong>.</p>
+    <p>At least one of the <code>competition</code>, <code>competition_id</code> or <code>competition_key</code> parameters is <strong>required</strong>.</p>
 </section>
 
 <section>

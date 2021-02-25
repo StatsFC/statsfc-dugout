@@ -86,7 +86,7 @@
         </tbody>
     </table>
 
-    <p>At least one of the <code>season</code> or <code>season_id</code> parameters is <strong>required</strong>.</p>
+    <p>At least one of the <code>competition</code>, <code>competition_id</code>, <code>competition_key</code>, <code>team</code> or <code>team_id</code> parameters is <strong>required</strong>.</p>
 </section>
 
 <section>
