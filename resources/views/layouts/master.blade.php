@@ -50,7 +50,7 @@
             </ul>
 
             <p class="text-muted">
-                <a href="http://status.statsfc.com" target="_blank">Status</a>
+                <a href="https://stats.uptimerobot.com/qjKm8i82o" target="_blank">Status</a>
                 <i class="fa fa-fw fa-flash"></i>
                 <small>Copyright © {{ Carbon\Carbon::now()->year }} Stats FC</small>
             </p>
