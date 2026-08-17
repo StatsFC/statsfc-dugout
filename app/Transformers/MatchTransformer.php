@@ -63,6 +63,24 @@ class MatchTransformer extends Transformer
                 'home' => (new MatchPlayerTransformer)->transformCollection($homePlayers),
                 'away' => (new MatchPlayerTransformer)->transformCollection($awayPlayers),
             ],
+            'managers'     => [
+                'home' => [
+                    'id'   => $match->home_coach_id,
+                    'name' => $match->home_coach,
+                ],
+                'away' => [
+                    'id'   => $match->away_coach_id,
+                    'name' => $match->away_coach,
+                ],
+            ],
+            'referee'      => [
+                'id'   => $match->referee_id,
+                'name' => $match->referee,
+            ],
+            'venue'        => [
+                'id'   => $match->venue_id,
+                'name' => $match->venue,
+            ],
             'score'        => [
                 $match->home_score,
                 $match->away_score,
